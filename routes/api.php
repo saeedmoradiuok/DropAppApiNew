@@ -9,16 +9,11 @@ use App\Models\StoryContent;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/reset', function () {
-
-    Artisan::call('migrate:reset');
-    echo 'migration done';
-
-});
 
 Route::get('/migrate', function () {
 
     Artisan::call('migrate');
+    echo 'migration done';
 
 });
 
