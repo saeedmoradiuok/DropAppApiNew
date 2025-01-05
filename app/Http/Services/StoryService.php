@@ -24,10 +24,17 @@ class StoryService{
         return ApiResponse::baseResponse(true,'story added',null);
     }
 
-    public static function getStories(){
-        $stories = Story::all();
-        $stories = StoryResource::collection($stories);
-        return ApiResponse::storyResponse(true,'get stories',$stories);
+    public static function getStories($page){
+        $perPage = 10;
+        $paginatedStories = Story::where('published', true)
+        ->paginate($perPage, ['*'], 'page', $page);
+        $stories = StoryResource::collection($paginatedStories->items());
+        $pagination = [
+            'total' => $paginatedStories->total(),
+            'currentPage' => $paginatedStories->currentPage(),
+            'lastPage' => $paginatedStories->lastPage()
+        ];
+        return ApiResponse::storyResponse(true,'get stories',$pagination,$stories);
     }
 
     public static function getStory($storyId){

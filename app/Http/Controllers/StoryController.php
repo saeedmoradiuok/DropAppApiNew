@@ -20,7 +20,8 @@ class StoryController extends Controller
     
     public function getStories(Request $request){
         try{
-            return StoryService::getStories();
+            $page = $request->get('page',1);
+            return StoryService::getStories($page);
         }catch(Exception $error){
             return ApiResponse::baseResponse(false,$error->getMessage(),null);
         }

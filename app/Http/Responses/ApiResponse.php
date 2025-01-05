@@ -30,8 +30,9 @@ class ApiResponse{
         ], $success ? 200 : 400);
     }
 
-    public static function storyResponse($success,$message,$stories){
+    public static function storyResponse($success,$message,$pagination,$stories){
         return self::baseResponse($success, $message, [
+            'pagination' => $pagination,
             'stories' => $stories
         ], $success ? 200 : 400);
     }
