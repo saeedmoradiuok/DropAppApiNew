@@ -27,6 +27,7 @@ class StoryService{
     public static function getStories($page){
         $perPage = 10;
         $paginatedStories = Story::where('published', true)
+        ->orderBy('id', 'desc')
         ->paginate($perPage, ['*'], 'page', $page);
         $stories = StoryResource::collection($paginatedStories->items());
         $pagination = [
